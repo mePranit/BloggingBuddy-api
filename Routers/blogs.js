@@ -4,13 +4,11 @@ const router = new express.Router()
 //require('./db/mongoose')
 const blogs = require('../Models/blogs') 
 
-
-
 router.post('/createblog', function(req, res){   
 console.log(req.body);
 const mydata = new blogs(req.body)
 mydata.save().then(function(){
-res.send('blog created sucessfully')
+res.send('blog sucesfully created')
 }).catch(function(e){
 res.send(e)
 
