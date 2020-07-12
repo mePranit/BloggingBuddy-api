@@ -11,9 +11,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false })); 
 
 
-//const userRouter = require('./Routers/users')
-// // app.use(userRouter)
+const userRouter = require('./Routers/users')
+app.use(userRouter)
 
+
+const blogRouter = require('./Routers/blogs')
+app.use(blogRouter)
 
 // // const showRouter = require('./Routers/shows')
 // // app.use(showRouter)
@@ -24,5 +27,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-app.listen(5100, function(){
+app.listen(5200, function(){
 });

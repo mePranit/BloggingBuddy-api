@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router() 
 const Auth = require('../Middleware/auth')
-const multer = require('multer');
+//const multer = require('multer');
 
 //require('./db/mongoose')
 const users = require('../Models/users') 
@@ -16,6 +16,7 @@ console.log(req.body);
 const mydata = new users(req.body)
 mydata.save().then(function(){
 res.send('register sucessful')
+console.log(mydata);
 }).catch(function(e){
 res.send(e)
 })
