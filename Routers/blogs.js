@@ -1,33 +1,47 @@
-const express = require('express');
-const router = new express.Router() 
+    const express = require('express');
+    const router = new express.Router() 
 
-//require('./db/mongoose')
-const blogs = require('../Models/blogs') 
+    //require('./db/mongoose')
+    const blogs = require('../Models/blogs') 
 
-router.post('/createblog', function(req, res){   
-console.log(req.body);
-const mydata = new blogs(req.body)
-mydata.save().then(function(){
-res.send('blog sucesfully created')
-}).catch(function(e){
-res.send(e)
+    router.post('/createblog', function(req, res){   
+    console.log(req.body);
+    const mydata = new blogs(req.body)
+    mydata.save().then(function(){
+    res.send('blog sucesfully created')
+    }).catch(function(e){
+    res.send(e)
 
-}) 
-}) 
+    }) 
+    }) 
+
+
+    router.get('/selectallblogs', function(req, res){
+        blogs.find().then(function(user_data){
+    
+            //this line writes on postman
+        res.send(user_data);
+        console.log(req.body)
+        res.send("all data selected")
+        //console.log(user_data)
+        }).catch(function(e){
+            res.send("error")
+        });
+        })
     
 
     
-//     //request to update user
-//     //update show //this will update all show informaton
+    //request to update blog
+
     
-//     router.put('/updateshowwithall/:showid', function(req, res){
-//         //console.log("dsfadf");
-//         shows.findOneAndUpdate({_id :req.params.showid}, req.body).then(function(){
-//             res.send("show updated")
-//         }).catch(function(){ 
-//             res.send("error")
-//         }) 
-//         })
+    // router.put('/updateshowwithall/:showid', function(req, res){
+    //     //console.log("dsfadf");
+    //     shows.findOneAndUpdate({_id :req.params.showid}, req.body).then(function(){
+    //         res.send("show updated")
+    //     }).catch(function(){ 
+    //         res.send("error")
+    //     }) 
+    //     })
 
 
 //          //update show //this will add number of seats in existing

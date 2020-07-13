@@ -22,41 +22,9 @@ res.send(e)
 })
 })
 
+router.get('/getuser/:_id', function(req, res){
+    users.findById({_id:req.params._id}).then(function(user_data){
 
-//request for getting user information
-
-
-    
-    //request to update user
-    
-    router.put('/updateuser/:userid', function(req, res){
-        //console.log("dsfadf");
-        users.findOneAndUpdate({_id :req.params.userid}, req.body).then(function(){
-            res.send("updated")
-        }).catch(function(){ 
-            res.send("error")
-        }) 
-        })
-
-         
-    router.post('/1', function(req, res){
-        //console.log("dsfadf");
-       
-            res.send("updated")
-        }) 
-
-
-router.delete('/deleteuser/:userid', function(req, res){
-    console.log(req.params.userid);
-    users.findByIdAndDelete(req.params.userid).then(function(){
-        res.send("deleted")
-    }).catch(function(){ 
-        res.send(e)
-    })
-    })
-   
-router.get('/selectuser/:userid', function(req, res){
-    users.findById(req.params.userid).then(function(user_data){
         //this line writes on postman
     res.send(user_data);
     console.log(req.body)
@@ -66,6 +34,44 @@ router.get('/selectuser/:userid', function(req, res){
         res.send("error")
     });
     })
+
+
+
+//request for getting user information
+
+
+    
+    //request to update user
+    
+//     router.put('/updateuser/:userid', function(req, res){
+//         //console.log("dsfadf");
+//         users.findOneAndUpdate({_id :req.params.userid}, req.body).then(function(){
+//             res.send("updated")
+//         }).catch(function(){ 
+//             res.send("error")
+//         }) 
+//         })
+
+// router.delete('/deleteuser/:userid', function(req, res){
+//     console.log(req.params.userid);
+//     users.findByIdAndDelete(req.params.userid).then(function(){
+//         res.send("deleted")
+//     }).catch(function(){ 
+//         res.send(e)
+//     })
+//     })
+   
+// router.get('/selectuser/:userid', function(req, res){
+//     users.findById(req.params.userid).then(function(user_data){
+//         //this line writes on postman
+//     res.send(user_data);
+//     console.log(req.body)
+//     res.send("data selected")
+//     //console.log(user_data)
+//     }).catch(function(e){
+//         res.send("error")
+//     });
+//     })
 
     router.post("/login",async function (req,res)
         {
