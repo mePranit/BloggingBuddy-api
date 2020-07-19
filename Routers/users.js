@@ -35,6 +35,14 @@ router.get('/getuser/:_id', function(req, res){
     });
     })
 
+        router.put('/updateuser/:_id', function(req, res){
+        //console.log("dsfadf");
+        users.findOneAndUpdate({_id :req.params._id}, req.body).then(function(){
+            res.send("updated")
+        }).catch(function(){ 
+            res.send("error")
+        }) 
+        })
 
 
 //request for getting user information

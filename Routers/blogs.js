@@ -28,6 +28,19 @@
             res.send("error")
         });
         })
+
+        router.get('/selectmyblogs/:userid', function(req, res){
+            blogs.find({userid:req.params.userid}).then(function(user_data){
+        
+                //this line writes on postman
+            res.send(user_data);
+            console.log(req.body)
+            res.send("all data selected")
+            //console.log(user_data)
+            }).catch(function(e){
+                res.send("error")
+            });
+            })
     
 
     

@@ -28,6 +28,9 @@ const users=mongoose.Schema({
     username: {
         type: String
     },
+    bio: {
+        type: String
+    },
     password: {
         type: String
     },
