@@ -34,6 +34,9 @@ const users=mongoose.Schema({
     password: {
         type: String
     },
+    admin: {
+        type: String
+    },
     tokens:[{
         token:{
         type:String,
