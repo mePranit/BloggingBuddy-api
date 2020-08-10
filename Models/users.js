@@ -37,6 +37,12 @@ const users=mongoose.Schema({
     admin: {
         type: String
     },
+    code:{
+        type:String
+    },
+    verified:{
+        type:String
+    },
     tokens:[{
         token:{
         type:String,

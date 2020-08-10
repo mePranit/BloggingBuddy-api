@@ -6,7 +6,12 @@ const Auth = require('../Middleware/auth')
 //require('./db/mongoose')
 const users = require('../Models/users') 
 
+const nodemailer= require ('nodemailer');
 
+
+//sending mail
+
+    
 
 
 //request for register/signup for users
@@ -14,13 +19,53 @@ const users = require('../Models/users')
 router.post('/registeruser', function(req, res){   
 console.log(req.body);
 const mydata = new users(req.body)
-mydata.save().then(function(){
-res.send('register sucessful')
-console.log(mydata);
-}).catch(function(e){
-res.send(e)
+let transporter=nodemailer.createTransport({
+    service :'gmail',
+    auth :{
+        user:'Bloggingbuddy10@gmail.com',
+        pass:'BloggingBuddy10'
+    }
+});
+
+let mailOption={
+    from :'Bloggingbuddy10@gmail.com',
+    to :mydata.gmail,
+    subject : ' BloggingBuddy Account verification',
+    text : 'Your code is  '+ mydata.code + ' to verifiy your gmail account'
+};
+
+transporter.sendMail(mailOption,function(err,data){
+    if(err){
+        console.log('error occoured'+err)
+        res.send('unsucess')
+    }
+    else
+    {
+        console.log('process completed')
+        res.send('sucess')
+        // mydata.save().then(function(){
+        //     res.send('sucess')
+        //     console.log(mydata);
+        //     }).catch(function(e){
+        //     res.send('unsucess')
+        //     })
+    }
+});
 })
-})
+
+
+router.post('/finalregister', function(req, res){   
+    console.log(req.body);
+    const mydata = new users(req.body)
+
+            mydata.save().then(function(){
+                res.send('sucess')
+                console.log(mydata);
+                }).catch(function(e){
+                res.send('unsucess')
+                })
+
+    })
 
 router.get('/getuser/:_id', function(req, res){
     users.findById({_id:req.params._id}).then(function(user_data){
@@ -47,6 +92,20 @@ router.get('/getuser/:_id', function(req, res){
         });
         })
 
+
+        router.get('/searchuser/:searchvalue', function(req, res){
+            users.find({username:req.params.searchvalue}).then(function(user_data){
+        
+                //this line writes on postman
+            res.send(user_data);
+            console.log(req.body)
+            res.send("data selected")
+            //console.log(user_data)
+            }).catch(function(e){
+                res.send("error")
+            });
+            })
+
         router.put('/updateuser/:_id', function(req, res){
         //console.log("dsfadf");
         users.findOneAndUpdate({_id :req.params._id}, req.body).then(function(){
@@ -63,44 +122,6 @@ router.get('/getuser/:_id', function(req, res){
                 res.send(e)
             })
         })
-        
-
-
-//request for getting user information
-
-
-    
-    //request to update user
-    
-//     router.put('/updateuser/:userid', function(req, res){
-//         //console.log("dsfadf");
-//         users.findOneAndUpdate({_id :req.params.userid}, req.body).then(function(){
-//             res.send("updated")
-//         }).catch(function(){ 
-//             res.send("error")
-//         }) 
-//         })
-
-// router.delete('/deleteuser/:userid', function(req, res){
-//     console.log(req.params.userid);
-//     users.findByIdAndDelete(req.params.userid).then(function(){
-//         res.send("deleted")
-//     }).catch(function(){ 
-//         res.send(e)
-//     })
-//     })
-   
-// router.get('/selectuser/:userid', function(req, res){
-//     users.findById(req.params.userid).then(function(user_data){
-//         //this line writes on postman
-//     res.send(user_data);
-//     console.log(req.body)
-//     res.send("data selected")
-//     //console.log(user_data)
-//     }).catch(function(e){
-//         res.send("error")
-//     });
-//     })
 
     router.post("/login",async function (req,res)
         {
